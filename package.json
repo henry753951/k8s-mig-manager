@@ -3,6 +3,10 @@
   "version": "0.1.1",
   "private": false,
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/henry753951/k8s-mig-manager"
+  },
   "bin": {
     "k8s-mig-manager": "./src/index.tsx"
   },
