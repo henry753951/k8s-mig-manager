@@ -13,13 +13,17 @@ cat <<'EOF' >> ~/.npmrc
 EOF
 ```
 
-Install globally with Bun:
+Install globally with npm (no GitHub token needed after publishing to npmjs):
 
 ```bash
-bun add -g @henry753951/k8s-mig-manager
+npm install -g k8s-mig-manager
 ```
 
-If you prefer a single command for one-off installs, make sure the token is already available in `~/.npmrc` or your environment.
+If you still prefer Bun, you can run:
+
+```bash
+bun add -g k8s-mig-manager
+```
 
 ## Usage
 

@@ -22,8 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.14.0
-          registry-url: https://npm.pkg.github.com
-          scope: "@henry753951"
+          registry-url: https://registry.npmjs.org
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -42,7 +41,7 @@ jobs:
       - name: Build package
         run: bun run build
 
-      - name: Publish to GitHub Packages
-        run: npm publish --registry=https://npm.pkg.github.com
+      - name: Publish to npm
+        run: npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
