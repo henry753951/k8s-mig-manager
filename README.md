@@ -4,22 +4,13 @@ Ink + Bun + TypeScript CLI for viewing and changing NVIDIA GPU Operator MIG prof
 
 ## Install
 
-This package is public on GitHub Packages, but installs from the GitHub Packages npm registry still require authentication. Create a GitHub token with `read:packages` access, then add it to your npm config:
-
-```bash
-cat <<'EOF' >> ~/.npmrc
-@henry753951:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
-EOF
-```
-
-Install globally with npm (no GitHub token needed after publishing to npmjs):
+The package is published to npmjs.org. Install globally with npm:
 
 ```bash
 npm install -g k8s-mig-manager
 ```
 
-If you still prefer Bun, you can run:
+Or install globally with Bun:
 
 ```bash
 bun add -g k8s-mig-manager
