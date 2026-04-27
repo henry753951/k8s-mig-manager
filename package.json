@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "bun run src/index.tsx",
+    "build": "node scripts/build.mjs",
     "check": "bunx --bun @biomejs/biome@2.4.12 check .",
     "check:fix": "bunx --bun @biomejs/biome@2.4.12 check --write .",
     "format": "bunx --bun @biomejs/biome@2.4.12 format --write .",
