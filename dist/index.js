@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 #!/usr/bin/env node
 
 // src/index.tsx
@@ -614,53 +615,30 @@ function TabBar({ activeTab }) {
 }
 
 // src/kubectl.ts
-import { spawn } from "node:child_process";
 import { parse as parseYaml } from "yaml";
 var gpuOperatorNamespace = process.env.GPU_OPERATOR_NAMESPACE ?? "gpu-operator";
 var dcgmService = process.env.DCGM_EXPORTER_SERVICE ?? "nvidia-dcgm-exporter";
 async function kubectl(args, timeoutMs = 15e3) {
-  return await new Promise((resolve, reject) => {
-    const child = spawn("kubectl", args, {
-      stdio: ["ignore", "pipe", "pipe"]
-    });
-    let stdout = "";
-    let stderr = "";
-    let settled = false;
-    child.stdout.setEncoding("utf8");
-    child.stderr.setEncoding("utf8");
-    child.stdout.on("data", (chunk2) => {
-      stdout += chunk2;
-    });
-    child.stderr.on("data", (chunk2) => {
-      stderr += chunk2;
-    });
-    const finish = (handler) => {
-      if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-      handler();
-    };
-    const timeout = setTimeout(() => {
-      child.kill("SIGTERM");
-      finish(() => {
-        reject(new Error(`kubectl ${args.join(" ")} timed out after ${timeoutMs}ms`));
-      });
-    }, timeoutMs);
-    child.on("error", (error) => {
-      finish(() => {
-        reject(error);
-      });
-    });
-    child.on("close", (exitCode) => {
-      finish(() => {
-        if (exitCode !== 0) {
-          reject(new Error(stderr.trim() || `kubectl ${args.join(" ")} exited with ${exitCode ?? "unknown"}`));
-          return;
-        }
-        resolve({ stdout, stderr });
-      });
-    });
+  const process2 = Bun.spawn(["kubectl", ...args], {
+    stdout: "pipe",
+    stderr: "pipe"
   });
+  const timeout = setTimeout(() => {
+    process2.kill();
+  }, timeoutMs);
+  try {
+    const [stdout, stderr, exitCode] = await Promise.all([
+      new Response(process2.stdout).text(),
+      new Response(process2.stderr).text(),
+      process2.exited
+    ]);
+    if (exitCode !== 0) {
+      throw new Error(stderr.trim() || `kubectl ${args.join(" ")} exited with ${exitCode}`);
+    }
+    return { stdout, stderr };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 async function loadSnapshot() {
   try {
