@@ -1,10 +1,14 @@
 {
-  "name": "k8s-mig-manager",
+  "name": "@henry753951/k8s-mig-manager",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "type": "module",
   "bin": {
     "k8s-mig-manager": "./src/index.tsx"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
   },
   "scripts": {
     "start": "bun run src/index.tsx",
