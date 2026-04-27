@@ -2,12 +2,10 @@ name: Publish to npm
 
 on:
   push:
+    branches:
+      - 'release/**'
     tags:
       - 'v*'
-  release:
-    types:
-      - published
-  workflow_dispatch:
 
 jobs:
   publish:
