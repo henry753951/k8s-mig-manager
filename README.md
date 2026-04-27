@@ -44,6 +44,10 @@ bun run check:fix
 
 These scripts call `bunx --bun @biomejs/biome@2.4.12`, so they can run even when the Biome binary is not installed globally.
 
+## Release
+
+See [RELEASE.md](RELEASE.md) for the publishing flow, version bump steps, and tag-based release commands.
+
 ## Controls
 
 - outer layer: `up` / `down` select a node, `enter` opens a GPU node
