@@ -2,15 +2,43 @@
 
 Ink + Bun + TypeScript CLI for viewing and changing NVIDIA GPU Operator MIG profiles on Kubernetes nodes.
 
-## Run
+## Install
+
+This package is public on GitHub Packages, but installs from the GitHub Packages npm registry still require authentication. Create a GitHub token with `read:packages` access, then add it to your npm config:
 
 ```bash
-cd tools/k8s-mig-manager
+cat <<'EOF' >> ~/.npmrc
+@henry753951:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN
+EOF
+```
+
+Install globally with Bun:
+
+```bash
+bun add -g @henry753951/k8s-mig-manager
+```
+
+If you prefer a single command for one-off installs, make sure the token is already available in `~/.npmrc` or your environment.
+
+## Usage
+
+After installation, run the CLI directly:
+
+```bash
+k8s-mig-manager
+```
+
+## Development
+
+Install dependencies and run locally:
+
+```bash
 bun install
 bun run start
 ```
 
-## Lint and Format
+Lint and format:
 
 ```bash
 bun run lint
